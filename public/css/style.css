@@ -308,6 +308,7 @@ img{
 }
 
 .my-photos-img, img{
+    
     width: 300px;
     border-radius: 20px;
     border: 2px solid black;
