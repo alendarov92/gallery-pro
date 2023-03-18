@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 export const Details = () => {
     return (
         <div className='details'>
-
             <div>
                 <div className='details-card'>
                     <div className='my-photos'>
