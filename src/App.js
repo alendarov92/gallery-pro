@@ -1,9 +1,10 @@
 import {
-  Route,
-  Routes
+    Navigate,
+    Route,
+    Routes
 } from "react-router-dom";
 import './index.css'
-import React from "react";
+import React, { useContext } from "react";
 import Create from "./components/Create/Create";
 import Header from "./components/Header/Header";
 import Login from "./components/Login/Login";
@@ -12,29 +13,52 @@ import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import { Details } from "./components/Details/Details";
 import Edit from "./components/Edit/Edit";
+import { AuthContext } from "./context/AuthContext";
 
 
 function App() {
-  return (
 
-    <div className="App">
-      <Header />
-      <main>
+    const {currentUser} = useContext(AuthContext)
 
-      <Routes>
+    const RequireAuth = ({ children }) => {
+        return currentUser ? (children) : <Navigate to={'/login'} />
+    }
+    return (
 
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/myPhotos" element={<MyPhotos />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/details" element={<Details />} />
-        <Route path="/edit" element={<Edit />} />
+        <div className="App">
+            <Header />
+            <main>
 
-      </Routes>
-      </main>
-    </div>
-  );
+                <Routes>
+
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/myPhotos" element={
+                        <RequireAuth>
+                            <MyPhotos />
+                        </RequireAuth>
+                    } />
+                    <Route path="/create" element={
+                        <RequireAuth>
+                            <Create />
+                        </RequireAuth>
+                    } />
+                    <Route path="/details" element={
+                        <RequireAuth>
+                            <Details />
+                        </RequireAuth>
+                    } />
+                    <Route path="/edit" element={
+                        <RequireAuth>
+                            <Edit />
+                        </RequireAuth>
+                    } />
+
+                </Routes>
+            </main>
+        </div>
+    );
 }
 
 export default App;

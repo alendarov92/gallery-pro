@@ -21,7 +21,9 @@ body {
     justify-content: space-between;
     /* cursor: pointer; */
 }
-
+.welcome{
+    color: white;
+}
 .home {
     background-color: blue;
     padding: 10px;
@@ -218,7 +220,7 @@ img{
     justify-content: center;
 }
 
-.login form {
+.login form fieldset{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -250,6 +252,7 @@ img{
     color: red;
 }
 
+
 /* Register Form */
 .register {
     display: flex;
@@ -258,7 +261,7 @@ img{
     justify-content: center;
 }
 
-.register form {
+.register form fieldset{
     display: flex;
     flex-direction: column;
     align-items: center;

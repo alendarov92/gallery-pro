@@ -1,26 +1,28 @@
-import React, { useState } from 'react'
-import { signInWithEmailAndPassword  } from "firebase/auth"
+import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+
+
+
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, steError] = useState(false)
 
-    // const handleEmailChange = (event) => {
-    //     setEmail(event.target.value);
-    // };
+    const navigate = useNavigate()
 
-    // const handlePasswordChange = (event) => {
-    //     setPassword(event.target.value);
-    // };
-
+    const {dispatch} = useContext(AuthContext)
     const handleSubmit = (event) => {
         event.preventDefault();
-        signInWithEmailAndPassword (auth, email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user);
+                dispatch({type:"LOGIN", payload:user})
+                navigate('/')
             })
             .catch((error) => {
                 steError(true)
@@ -40,7 +42,7 @@ const Login = () => {
                                     name="email"
                                     id="email"
                                     placeholder="Email"
-                                    onChange={e=>setEmail(e.target.value)}
+                                    onChange={e => setEmail(e.target.value)}
                                 />
                             </span>
                         </p>
@@ -52,11 +54,12 @@ const Login = () => {
                                     name="password"
                                     id="password"
                                     placeholder="Password"
-                                    onChange={e=>setPassword(e.target.value)}
+                                    onChange={e => setPassword(e.target.value)}
                                 />
                             </span>
                         </p>
                         <input className="button-submit" type="submit" value="Login" />
+                        <span >Don't have an account <Link to={'/register'}>Sign Up</Link></span>
                         {error && <span>Wrong email or password!</span>}
                     </fieldset>
 

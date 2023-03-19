@@ -1,7 +1,10 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react'
+import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from '../../context/AuthContext';
 
 const Header = () => {
+
+    const { currentUser } = useContext(AuthContext)
     return (
 
 
@@ -11,11 +14,22 @@ const Header = () => {
                     <Link to="/">Home</Link>
                 </div>
                 <div className='categories'>
-                    <Link to="/myPhotos">My Photos</Link>
-                    <Link to="/create">Create</Link>
-                    <Link to="/login">Login</Link>
-                    <Link to="/logout">Logout</Link>
-                    <Link to="/register">Register</Link>
+
+                    {currentUser
+                        ?
+                        <>
+                            <span className='welcome'>Welcome: { currentUser.email}</span>
+                            <Link to="/myPhotos">My Photos</Link>
+                            <Link to="/create">Create</Link>
+                            <Link to="/logout">Logout</Link>
+                        </>
+                        :
+                        <>
+                            <Link to="/login">Login</Link>
+                            <Link to="/register">Register</Link>
+                        </>
+
+                    }
 
                 </div>
             </div>
@@ -26,3 +40,18 @@ const Header = () => {
 }
 
 export default Header;
+
+{/* {currentUser
+                        ?
+                        <>
+                            <Link to="/myPhotos">My Photos</Link>
+                            <Link to="/create">Create</Link>
+                            <Link to="/logout">Logout</Link>
+                        </>
+                        :
+                        <>
+                            <Link to="/login">Login</Link>
+                            <Link to="/register">Register</Link>
+                        </>
+
+                    } */}
