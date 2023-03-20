@@ -14,6 +14,7 @@ import Home from "./components/Home/Home";
 import { Details } from "./components/Details/Details";
 import Edit from "./components/Edit/Edit";
 import { AuthContext } from "./context/AuthContext";
+import { Logout } from "./components/Logout/Logout";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/" element={<Home />} />
+
                     <Route path="/myPhotos" element={
                         <RequireAuth>
                             <MyPhotos />
@@ -44,7 +46,7 @@ function App() {
                             <Create />
                         </RequireAuth>
                     } />
-                    <Route path="/details" element={
+                    <Route path="/myPhotos/:id" element={
                         <RequireAuth>
                             <Details />
                         </RequireAuth>
@@ -54,6 +56,7 @@ function App() {
                             <Edit />
                         </RequireAuth>
                     } />
+                    <Route path="/logout" element={<Logout />} />
 
                 </Routes>
             </main>

@@ -1,17 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase";
+
 
 const Create = () => {
-  const {title,
-    description,
-    imageUrl,
-    type} = Object.fromEntries(new FormData())
-const createHeandler = (e) => {
-    e.preventDefault()
     
+    const createHeandler = async (e) => {
+        e.preventDefault()
+        const {title, describtion,imageUrl,type } = Object.fromEntries(new FormData(e.target));
 
-}
-  return (
-    <div className='create-pg'>
+        await addDoc(collection(db,"photos"), {
+            title, 
+            describtion,
+            imageUrl,
+            type
+        });
+
+    }
+    return (
+        <div className='create-pg'>
             <section id="create-page" className="create">
                 <form id="create-form" action="" method="" onSubmit={createHeandler}>
                     <fieldset>
@@ -46,7 +53,7 @@ const createHeandler = (e) => {
                                     <option value="Nature">Nature</option>
                                     <option value="Automobile">Automobile</option>
                                     <option value="Animals">Animals</option>
-                                    
+
                                 </select>
                             </span>
                         </p>
@@ -59,7 +66,7 @@ const createHeandler = (e) => {
                 </form>
             </section>
         </div>
-  )
+    )
 }
 
 export default Create;

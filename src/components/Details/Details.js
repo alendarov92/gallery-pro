@@ -1,20 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { collection, doc, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase';
+
+
+
 export const Details = () => {
+  const [photo, setPhoto] = useState([]);
+  const photosCollectionRef = collection(db, "photo");
+
+  useEffect(() => {
+    const getPhotos = async () => {
+      const data = await getDocs(photosCollectionRef);
+      setPhoto(data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      })));
+    }
+    getPhotos();
+  },[])
+  
     return (
         <div className='details'>
             <div>
                 <div className='details-card'>
                     <div className='my-photos'>
-                        <img className='my-photo-img' src="https://ichef.bbci.co.uk/images/ic/960x960/p0dldn2l.jpg" alt="" />
+                        <img className='my-photo-img' src={photo.imgurl} alt="" />
                     </div>
                     <div>
-                        <h1>Title</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                            Nemo blanditiis molestias,
-                            nisi veniam explicabo deserunt at odit sint quasi rerum architecto reiciendis iste et,
-                            quod fuga ab officia voluptatum dolore.</p>
-                        <p>category</p>
+                        <h1>{photo.title}</h1>
+                        <p>{photo.descriptoin}</p>
+                        <p>{photo.type}</p>
                     </div>
                 </div>
                 <div className='card-btn'>
