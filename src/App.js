@@ -1,7 +1,8 @@
 import {
     Navigate,
     Route,
-    Routes
+    
+    Routes,
 } from "react-router-dom";
 import './index.css'
 import React, { useContext } from "react";
@@ -11,7 +12,7 @@ import Login from "./components/Login/Login";
 import MyPhotos from "./components/MyPhotos/MyPhotos";
 import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
-import { Details } from "./components/Details/Details";
+import Details from "./components/Details/Details";
 import Edit from "./components/Edit/Edit";
 import { AuthContext } from "./context/AuthContext";
 import { Logout } from "./components/Logout/Logout";
@@ -19,11 +20,12 @@ import { Logout } from "./components/Logout/Logout";
 
 function App() {
 
-    const {currentUser} = useContext(AuthContext)
+    const { currentUser } = useContext(AuthContext)
 
     const RequireAuth = ({ children }) => {
         return currentUser ? (children) : <Navigate to={'/login'} />
     }
+    
     return (
 
         <div className="App">
@@ -31,10 +33,12 @@ function App() {
             <main>
 
                 <Routes>
+                   
 
+                    <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/" element={<Home />} />
+                    <Route path="/logout" element={<Logout />} />
 
                     <Route path="/myPhotos" element={
                         <RequireAuth>
@@ -46,17 +50,14 @@ function App() {
                             <Create />
                         </RequireAuth>
                     } />
-                    <Route path="/myPhotos/:id" element={
-                        <RequireAuth>
-                            <Details />
-                        </RequireAuth>
+                    <Route path="/currPhoto/:id" element={<Details />
                     } />
-                    <Route path="/edit" element={
+                    <Route path="/currPhoto/:id/edit" element={
                         <RequireAuth>
                             <Edit />
                         </RequireAuth>
                     } />
-                    <Route path="/logout" element={<Logout />} />
+                   
 
                 </Routes>
             </main>

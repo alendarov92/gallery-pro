@@ -9,14 +9,14 @@ const MyPhotos = () => {
   useEffect(() => {
     const getPhotos = async () => {
       const data = await getDocs(photosCollectionRef);
-      getDocs(data.docs.map((doc) => ({
+      setPhoto(data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id
       })));
     }
     getPhotos();
   },[])
-  
+
   return (
     <div className='create'>
       <Link className='create-btn-link' to={'/create'}>
@@ -24,10 +24,11 @@ const MyPhotos = () => {
       </Link>
       <div>
         <div className='my-photos'>
-          <Link to={'/details'}>
-          
-          <img className='my-photo-img' src="https://ichef.bbci.co.uk/images/ic/960x960/p0dldn2l.jpg" alt="" />
-          </Link>
+        {photo.map(x => <span>
+        <Link to={`details/${doc.id}`}>
+          <img className='hero-img' style={{'--i':1}} src={x.imgurl} alt="" />
+        </Link>
+        </span>)}
         </div>
         </div>
     </div>

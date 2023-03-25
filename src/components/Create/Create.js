@@ -1,21 +1,34 @@
 import React, { useState } from 'react'
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useNavigate } from 'react-router-dom';
 
 
 const Create = () => {
-    
+
+    const [inputTitle, setInputTitle] = useState('')
+    const [inputDescription, setInputDescription] = useState('')
+    const [inputImg, setInputImg] = useState('')
+    const [inputType, setInputType] = useState('')
+
+    const navigate = useNavigate() 
     const createHeandler = async (e) => {
         e.preventDefault()
-        const {title, describtion,imageUrl,type } = Object.fromEntries(new FormData(e.target));
-
-        await addDoc(collection(db,"photos"), {
-            title, 
-            describtion,
-            imageUrl,
-            type
+        // if (inputTitle &&
+        //     inputDescription &&
+        //     inputImg &&
+        //     inputType === '') {
+        //     alert('All fields are required!')
+        //     return
+        // }
+        await addDoc(collection(db, "photo"), {
+           title: inputTitle,
+           description: inputDescription,
+           imgurl: inputImg,
+           type: inputType,
+           completed: false,
         });
-
+        navigate('/')
     }
     return (
         <div className='create-pg'>
@@ -26,30 +39,32 @@ const Create = () => {
                         <p className="field">
                             <label htmlFor="title">Title</label>
                             <span className="input">
-                                <input type="text" name="title" id="title" placeholder="Title" />
+                                <input type="text" name="title" id="title" placeholder="Title" onChange={(e) => setInputTitle(e.target.value)} />
                             </span>
                         </p>
                         <p className="field">
                             <label htmlFor="description">Description</label>
-                            <span className="input">
+                            <span className="input" >
                                 <textarea
                                     name="description"
                                     id="description"
                                     placeholder="Description"
                                     defaultValue={""}
+                                    onChange={(e) => setInputDescription(e.target.value)}
                                 />
                             </span>
                         </p>
                         <p className="field">
                             <label htmlFor="image">Image</label>
                             <span className="input">
-                                <input type="text" name="imageUrl" id="image" placeholder="Image" />
+                                <input type="text" name="imageUrl" id="image" placeholder="Image" onChange={(e) => setInputImg(e.target.value)}/>
                             </span>
                         </p>
                         <p className="field">
                             <label htmlFor="type">Type</label>
-                            <span className="input">
-                                <select id="type" name="type">
+                            <span className="input" >
+                                <select id="type" name="type" onChange={(e) => setInputType(e.target.value)}>
+                                    <option value="...">...</option>
                                     <option value="Nature">Nature</option>
                                     <option value="Automobile">Automobile</option>
                                     <option value="Animals">Animals</option>

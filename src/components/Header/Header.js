@@ -6,8 +6,6 @@ const Header = () => {
 
     const { currentUser } = useContext(AuthContext)
     return (
-
-
         <nav className='nav'>
             <div className='nav-bar'>
                 <div className='home'>

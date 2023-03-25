@@ -1,44 +1,57 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { collection, doc, getDocs } from 'firebase/firestore';
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { doc, onSnapshot, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { AuthContext } from '../../context/AuthContext';
 
 
 
-export const Details = () => {
-  const [photo, setPhoto] = useState([]);
-  const photosCollectionRef = collection(db, "photo");
 
-  useEffect(() => {
-    const getPhotos = async () => {
-      const data = await getDocs(photosCollectionRef);
-      setPhoto(data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id
-      })));
+const Details = () => {
+    const { id } = useParams()
+    const { currentUser } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const [photoDetails, setPhotoDetails] = useState([]);
+    const photosCollectionRef = doc(db, "photo", id);
+
+
+    
+    const deleteHeandler =  () => {
+        const confirmation = window.confirm('Are you sure you want to delete this photo?');
+        if (confirmation) {     
+             deleteDoc(doc(db, 'photo', id))
+            navigate('/')
+        }
+        
     }
-    getPhotos();
-  },[])
-  
+    useEffect(() => {
+        onSnapshot(photosCollectionRef, (doc) => {
+            setPhotoDetails(doc.data())
+        });
+    }, [])
+
     return (
         <div className='details'>
             <div>
                 <div className='details-card'>
                     <div className='my-photos'>
-                        <img className='my-photo-img' src={photo.imgurl} alt="" />
+                        <img className='my-photo-img' src={photoDetails.imgurl} alt="" />
                     </div>
                     <div>
-                        <h1>{photo.title}</h1>
-                        <p>{photo.descriptoin}</p>
-                        <p>{photo.type}</p>
+                        <h1>{photoDetails.title}</h1>
+                        <p>{photoDetails.description}</p>
+                        <p>{photoDetails.type}</p>
                     </div>
                 </div>
-                <div className='card-btn'>
-                    <Link className='edit-btn' to={'/edit'}>Edit</Link>
-                    <button className='delete-btn'>Delete</button>
+                 <div className='card-btn'>
+                        <Link className='edit-btn' to={`/currPhoto/${id}/edit`}>Edit</Link>
+                        <button className='delete-btn' onClick={deleteHeandler}>Delete</button>
+                    </div>
+                       
 
-                </div>
             </div>
         </div>
     )
 }
+
+export default Details;
