@@ -1,35 +1,38 @@
-import React, { useState } from 'react'
-import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import React, { useContext, useState } from 'react'
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 
 const Create = () => {
+    const { currentUser } = useContext(AuthContext);
+    
+    const [inputTitle, setInputTitle] = useState('');
+    const [inputDescription, setInputDescription] = useState('');
+    const [inputImg, setInputImg] = useState('');
+    const [inputType, setInputType] = useState('');
 
-    const [inputTitle, setInputTitle] = useState('')
-    const [inputDescription, setInputDescription] = useState('')
-    const [inputImg, setInputImg] = useState('')
-    const [inputType, setInputType] = useState('')
+    const ownerId = currentUser.uid;
 
-    const navigate = useNavigate() 
+    const navigate = useNavigate();
+    const userRef = collection(db, 'photo');
     const createHeandler = async (e) => {
-        e.preventDefault()
-        // if (inputTitle &&
-        //     inputDescription &&
-        //     inputImg &&
-        //     inputType === '') {
-        //     alert('All fields are required!')
-        //     return
-        // }
-        await addDoc(collection(db, "photo"), {
-           title: inputTitle,
-           description: inputDescription,
-           imgurl: inputImg,
-           type: inputType,
-           completed: false,
+        e.preventDefault();
+
+        await addDoc(userRef, {
+            title: inputTitle,
+            description: inputDescription,
+            imgurl: inputImg,
+            type: inputType,
+            ownerId: ownerId,
+            completed: false,
         });
-        navigate('/')
-    }
+        navigate('/');
+
+        // .collection("photo")
+        // .orderBy("ownerId", "asc")
+    };
     return (
         <div className='create-pg'>
             <section id="create-page" className="create">
@@ -57,7 +60,7 @@ const Create = () => {
                         <p className="field">
                             <label htmlFor="image">Image</label>
                             <span className="input">
-                                <input type="text" name="imageUrl" id="image" placeholder="Image" onChange={(e) => setInputImg(e.target.value)}/>
+                                <input type="text" name="imageUrl" id="image" placeholder="Image" onChange={(e) => setInputImg(e.target.value)} />
                             </span>
                         </p>
                         <p className="field">
@@ -81,7 +84,7 @@ const Create = () => {
                 </form>
             </section>
         </div>
-    )
-}
+    );
+};
 
 export default Create;

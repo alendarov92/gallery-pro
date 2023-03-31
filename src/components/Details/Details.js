@@ -8,27 +8,35 @@ import { AuthContext } from '../../context/AuthContext';
 
 
 const Details = () => {
+
     const { id } = useParams()
     const { currentUser } = useContext(AuthContext)
+
     const navigate = useNavigate()
+
     const [photoDetails, setPhotoDetails] = useState([]);
     const photosCollectionRef = doc(db, "photo", id);
-
-
     
-    const deleteHeandler =  () => {
+    const ownerId = photoDetails.ownerId
+    const isOwner = currentUser.uid
+    
+    const owner = ownerId === isOwner
+    
+
+    const deleteHeandler = () => {
         const confirmation = window.confirm('Are you sure you want to delete this photo?');
-        if (confirmation) {     
-             deleteDoc(doc(db, 'photo', id))
+        if (confirmation) {
+            deleteDoc(doc(db, 'photo', id))
             navigate('/')
-        }
-        
-    }
+        };
+    };
+
     useEffect(() => {
         onSnapshot(photosCollectionRef, (doc) => {
             setPhotoDetails(doc.data())
         });
-    }, [])
+    }, []);
+
 
     return (
         <div className='details'>
@@ -43,11 +51,15 @@ const Details = () => {
                         <p>{photoDetails.type}</p>
                     </div>
                 </div>
-                 <div className='card-btn'>
+                {owner
+                    ?
+                    <div className='card-btn'>
                         <Link className='edit-btn' to={`/currPhoto/${id}/edit`}>Edit</Link>
                         <button className='delete-btn' onClick={deleteHeandler}>Delete</button>
                     </div>
-                       
+                    : ''}
+
+
 
             </div>
         </div>
