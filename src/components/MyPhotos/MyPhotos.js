@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { collection, where, getDocs, query } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { AuthContext } from '../../context/AuthContext';
+import { motion } from 'framer-motion';
 
 const MyPhotos = () => {
 
@@ -26,17 +27,32 @@ const MyPhotos = () => {
 
     return (
         <div className='create'>
-            <Link className='create-btn-link' to={'/create'}>
-                <h1 className='create-btn'>Create +</h1>
-            </Link>
-            <div>
-                <div className='my-photos'>
+            <div className='create-btn-link'>
+                <Link className='link-btn'  to={'/create'}>
+                    <div className='create-btn'>
+                        <span>+</span>
+                    </div>
+                </Link>
+            </div>
+            <div className='myPhoto-container'>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                        duration: 0.8,
+                        delay: 0.2,
+                        ease: [0, 0.71, 0.2, 1.01]
+                    }}
+                    className='my-photos'>
                     {photo.map(currPhoto =>
                         <Link to={`/currPhoto/${currPhoto.id}`}>
-                            <img className='hero-img' src={currPhoto.imgurl} alt="" />
+                            <motion.img whileHover={{
+                                scale: 1.1,
+                                transition: { duration: 0.3 },
+                            }} className='my-photos-img' src={currPhoto.imgurl} alt="" />
                         </Link>
                     )}
-                </div>
+                </motion.div>
             </div>
         </div>
     );

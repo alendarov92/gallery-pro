@@ -7,12 +7,15 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confPassword, setConfPassword] = useState('');
-    const [error, steError] = useState(false)
+    const [error, steError] = useState(false);
 
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (email == '' || password == '' || confPassword == '') {
+            window.alert('All fields are required');
+        }
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
@@ -73,7 +76,7 @@ const Register = () => {
                 </form>
             </section>
         </div>
-    )
-}
+    );
+};
 
 export default Register;

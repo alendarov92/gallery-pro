@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const Create = () => {
     const { currentUser } = useContext(AuthContext);
-    
+
     const [inputTitle, setInputTitle] = useState('');
     const [inputDescription, setInputDescription] = useState('');
     const [inputImg, setInputImg] = useState('');
@@ -17,9 +17,18 @@ const Create = () => {
 
     const navigate = useNavigate();
     const userRef = collection(db, 'photo');
+
     const createHeandler = async (e) => {
         e.preventDefault();
 
+        if (inputTitle == '' ||
+            inputDescription == '' ||
+            inputImg == '' ||
+            inputType == ''
+        ) {
+            window.alert('All fields are required')
+            return;
+        }
         await addDoc(userRef, {
             title: inputTitle,
             description: inputDescription,
@@ -29,10 +38,8 @@ const Create = () => {
             completed: false,
         });
         navigate('/');
-
-        // .collection("photo")
-        // .orderBy("ownerId", "asc")
     };
+    
     return (
         <div className='create-pg'>
             <section id="create-page" className="create">

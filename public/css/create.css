@@ -1,0 +1,67 @@
+.create-pg {
+    display: flex;
+    justify-content: center;
+    margin: 16rem;
+
+}
+
+.field .input,
+#type {
+    display: flex;
+    position: relative;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.field .input input,
+#type {
+    border: none;
+    flex: 1 1 auto;
+    padding: 0.7rem;
+    outline: none;
+    border-radius: 10px;
+    z-index: 2;
+    order: 2;
+}
+
+.field .input #description {
+    width: 423px;
+    height: 141px;
+    border-radius: 10px;
+}
+
+.field .input .fas {
+    z-index: 2;
+    position: relative;
+    padding: 0 0 0 0.8rem;
+    font-size: 0.9em;
+    order: 1;
+}
+
+form {
+    max-width: 30rem;
+}
+
+form fieldset {
+    background-color: lightblue;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.button-submit {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(51, 220, 51);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.legend {
+    background-color: rgb(70, 70, 216);
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+}

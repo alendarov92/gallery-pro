@@ -4,7 +4,7 @@ import { db } from '../../firebase';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Edit = () => {
-    const { id } = useParams()
+    const { id } = useParams();
     const [currentPhoto, setCurrentPhoto] = useState({});
     const photosCollectionRef = doc(db, "photo", id);
     const navigate = useNavigate()
@@ -13,7 +13,7 @@ const Edit = () => {
         onSnapshot(photosCollectionRef, (doc) => {
             setCurrentPhoto(doc.data())
         });
-    }, [])
+    }, []);
 
     const edtitHeandler = (e) => {
         e.preventDefault()
@@ -22,8 +22,8 @@ const Edit = () => {
         updateDoc(photosCollectionRef, photoData)
         .then(photosCollectionRef => {
             navigate(`/currPhoto/${id}`)
-        })
-    }
+        });
+    };
     return (
         <div className='create-pg'>
             <section id="create-page" className="create">
@@ -73,7 +73,7 @@ const Edit = () => {
                 </form>
             </section>
         </div>
-    )
-}
+    );
+};
 
-export default Edit
+export default Edit;

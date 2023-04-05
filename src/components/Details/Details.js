@@ -9,31 +9,31 @@ import { AuthContext } from '../../context/AuthContext';
 
 const Details = () => {
 
-    const { id } = useParams()
-    const { currentUser } = useContext(AuthContext)
+    const { id } = useParams();
+    const { currentUser } = useContext(AuthContext);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [photoDetails, setPhotoDetails] = useState([]);
     const photosCollectionRef = doc(db, "photo", id);
     
-    const ownerId = photoDetails.ownerId
-    const isOwner = currentUser.uid
+    const ownerId = photoDetails.ownerId;
+    const isOwner = currentUser.uid;
     
-    const owner = ownerId === isOwner
+    const owner = ownerId === isOwner;
     
 
     const deleteHeandler = () => {
         const confirmation = window.confirm('Are you sure you want to delete this photo?');
         if (confirmation) {
-            deleteDoc(doc(db, 'photo', id))
-            navigate('/')
+            deleteDoc(doc(db, 'photo', id));
+            navigate('/');
         };
     };
 
     useEffect(() => {
         onSnapshot(photosCollectionRef, (doc) => {
-            setPhotoDetails(doc.data())
+            setPhotoDetails(doc.data());
         });
     }, []);
 
@@ -42,11 +42,11 @@ const Details = () => {
         <div className='details'>
             <div>
                 <div className='details-card'>
+                        <h1>{photoDetails.title}</h1>
                     <div className='my-photos'>
                         <img className='my-photo-img' src={photoDetails.imgurl} alt="" />
                     </div>
                     <div>
-                        <h1>{photoDetails.title}</h1>
                         <p>{photoDetails.description}</p>
                         <p>{photoDetails.type}</p>
                     </div>
@@ -58,12 +58,9 @@ const Details = () => {
                         <button className='delete-btn' onClick={deleteHeandler}>Delete</button>
                     </div>
                     : ''}
-
-
-
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Details;

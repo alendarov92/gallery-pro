@@ -1,9 +1,4 @@
-import {
-    Navigate,
-    Route,
-    
-    Routes,
-} from "react-router-dom";
+import { Navigate, Route, Routes, } from "react-router-dom";
 import './index.css'
 import React, { useContext } from "react";
 import Create from "./components/Create/Create";
@@ -20,20 +15,20 @@ import { Logout } from "./components/Logout/Logout";
 
 function App() {
 
-    const { currentUser } = useContext(AuthContext)
+    const { currentUser } = useContext(AuthContext);
 
     const RequireAuth = ({ children }) => {
         return currentUser ? (children) : <Navigate to={'/login'} />
-    }
-    
+    };
+
     return (
 
         <div className="App">
             <Header />
+
             <main>
 
                 <Routes>
-                   
 
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
@@ -57,7 +52,7 @@ function App() {
                             <Edit />
                         </RequireAuth>
                     } />
-                   
+
 
                 </Routes>
             </main>

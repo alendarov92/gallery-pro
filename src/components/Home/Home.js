@@ -15,7 +15,7 @@ const Home = () => {
 
         const getPhotos = async () => {
             const data = await getDocs(photosCollectionRef);
-            
+
             setPhoto(data.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
@@ -40,18 +40,23 @@ const Home = () => {
                     </div>
                 </div>
 
-                <motion.div initial={{ opacity: 0, scale: 0.5 }}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{
                         duration: 0.8,
                         delay: 0.2,
                         ease: [0, 0.71, 0.2, 1.01]
-                    }} className='card'>
-                    <motion.h2>Categories</motion.h2>
-                    <motion.div>
+                    }}
+                    className='card'>
+                    
+                    <motion.div className='photo-container'>
                         {photo.map(currPhoto =>
                             <Link to={`/currPhoto/${currPhoto.id}`} >
-                                <img className='hero-img' key={currPhoto.id} src={currPhoto.imgurl} alt="" />
+                                <motion.img whileHover={{
+                                    scale: 1.1,
+                                    transition: { duration: 0.3 },
+                                }} className='hero-img' key={currPhoto.id} src={currPhoto.imgurl} alt="" />
                             </Link>
                         )}
                     </motion.div>

@@ -10,13 +10,16 @@ import { AuthContext } from '../../context/AuthContext';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, steError] = useState(false)
+    const [error, steError] = useState(false);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const {dispatch} = useContext(AuthContext)
+    const {dispatch} = useContext(AuthContext);
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (email == '' || password == '') {
+            window.alert('All fields are required');
+        }
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
@@ -26,7 +29,7 @@ const Login = () => {
             })
             .catch((error) => {
                 steError(true)
-            })
+            });
     };
 
     return (
@@ -67,8 +70,8 @@ const Login = () => {
             </section>
         </div>
 
-    )
-}
+    );
+};
 
 
 export default Login;
