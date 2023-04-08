@@ -32,11 +32,13 @@ const Home = () => {
             <div className="container">
                 <div className="hero-container">
                     <div className="hero-heading">
-                        <div>
+                       <div>
+
                             <h1 className='he1'>This is</h1>
                             <h1 className='he2'>Youre</h1>
                             <h1 className='he3'>View Point</h1>
-                        </div>
+                       </div>
+                        
                     </div>
                 </div>
 
