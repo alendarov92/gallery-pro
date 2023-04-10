@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
-import { collection, doc, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 const Home = () => {
 
     const [photo, setPhoto] = useState([]);
-
     const photosCollectionRef = collection(db, "photo");
 
     useEffect(() => {
@@ -63,7 +62,7 @@ const Home = () => {
                         )}
                     </motion.div>
                 </motion.div>
-            </div>
+            </div>   
         </div>
     );
 };

@@ -12,5 +12,5 @@ body {
     font-weight: 600;
     width: auto;
     background: rgb(2, 0, 36);
-    background: linear-gradient(312deg, rgba(2, 0, 36, 1) 0%, rgba(151, 200, 142, 1) 0%, rgba(190, 244, 255, 1) 61%);
+    background: linear-gradient(312deg, rgba(2,0,36,1) 0%, rgba(41,233,86,1) 0%, rgba(203,203,205,1) 61%);
 }
