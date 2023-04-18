@@ -50,7 +50,7 @@ const Edit = () => {
                         <p className="field">
                             <label htmlFor="image">Image</label>
                             <span className="input">
-                                <input type="text" name="imageurl" id="image" placeholder="Image" defaultValue={currentPhoto.imgurl} />
+                                <input type="text" name="imgurl" id="image" placeholder="Image" defaultValue={currentPhoto.imgurl} />
                             </span>
                         </p>
                         <p className="field">
