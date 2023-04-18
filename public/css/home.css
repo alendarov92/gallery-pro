@@ -18,29 +18,33 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-   
+
 }
 
 .he1 {
     font-family: 'Dancing Script', cursive;
     position: absolute;
     top: 10rem;
-    left: 26rem;
+    left: 12rem;
+    text-shadow: 0px 0px 14px rgba(128, 0, 0, 1);
 
 }
 
 .he2 {
     font-family: Trebuchet MS, sans-serif;
-    font-size: 200px;
+    font-size: 100px;
+    position: relative;
+    top: -4rem;
+    text-shadow: 0px 0px 14px rgba(128, 0, 0, 1);
 }
 
 .he3 {
     font-family: 'Dancing Script', cursive;
-    font-size: 100px;
+    font-size: 50px;
     position: absolute;
     top: 16rem;
-    left: 26rem;
-
+    left: 16rem;
+    text-shadow: 0px 0px 14px rgba(128, 0, 0, 1);
 }
 
 .photo-container {
@@ -51,7 +55,9 @@
 
 }
 
-
+.hero{
+    width: 100%;
+}
 
 
 

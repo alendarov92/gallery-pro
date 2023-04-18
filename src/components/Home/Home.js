@@ -31,13 +31,29 @@ const Home = () => {
             <div className="container">
                 <div className="hero-container">
                     <div className="hero-heading">
-                       <div>
+                        <div>
+                            < motion.div
+                                animate={{ x: 50 }}
+                                transition={{ ease: "easeOut", duration: 1 }}
+                                className='he1'>
+                                <h1 >This is</h1>
+                            </motion.div>
 
-                            <h1 className='he1'>This is</h1>
-                            <h1 className='he2'>Youre</h1>
-                            <h1 className='he3'>View Point</h1>
-                       </div>
-                        
+                            <motion.div
+                                animate={{ y: 80 }}
+                                transition={{ ease: "easeOut", duration: 1 }}
+                                className='he2'>
+                                <h1 >Youre</h1>
+                            </motion.div>
+                            <motion.div
+                                animate={{ x: -50 }}
+                                transition={{ ease: "easeOut", duration: 1 }}
+                                className='he3'>
+                                <h1 >View Point</h1>
+                            </motion.div>
+
+                        </div>
+
                     </div>
                 </div>
 
@@ -50,7 +66,7 @@ const Home = () => {
                         ease: [0, 0.71, 0.2, 1.01]
                     }}
                     className='card'>
-                    
+
                     <motion.div className='photo-container'>
                         {photo.map(currPhoto =>
                             <Link to={`/currPhoto/${currPhoto.id}`} >
@@ -62,8 +78,8 @@ const Home = () => {
                         )}
                     </motion.div>
                 </motion.div>
-            </div>   
-        </div>
+            </div>
+        </div >
     );
 };
 
